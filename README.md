@@ -1,88 +1,111 @@
 # 20minCoach — Frontend Architecture (Caso #1)
 
 
-**Curso:** Diseño del Software / IC-6821
+**Curso:** Course: Software Design / IC-6821
 
-**Grupo:** 3 integrantes
-## Integrantes
+**Group:** 3 members
+## Members
 - Fiorella Chinchilla Ortiz - fichinchilla@estudiantec.cr
 - Javier Rodriguez Menjivar - ja.rodriguez@estudiantec.cr
 - Josue Salazar Quiros - jo.salazar@estudiantec.cr
 
-## Descripción breve
-Plataforma de conexión instantánea entre usuarios y coaches por sesiones de 20 minutos. Este repositorio contiene la arquitectura frontend propuesta, PoCs, pruebas unitarias y documentación para implementación.
+## Brief Description
+Platform for instant connection between users and coaches for 20-minute sessions. This repository contains the front-end architecture proposal, PoC, unit tests, and implementation documentation. 
 
-## Tecnologías 
-- Framework Frontend: React + TypeScript
-- Gestión de Estado: Redux Toolkit + RTK Query
-- Estilos: Tailwind CSS
-- Video en Tiempo Real: WebRTC (Simple-Peer)
-- Notificaciones: Socket.io
-- Testing Unitario: Jest + React Testing Library
-- Testing E2E: Cypress
-- Autenticación: Auth0 / AWS Cognito
-- Prototipado UX: Figma
-- Testeo UX: Maze
-- Linter: ESLint + Prettier
-- Logging: Sentry
-- Bundling: Vite
-- Deployment: Vercel
-- Gestión de Paquetes: Yarn
-- Control de Versiones: Github
+### Chosen Stack
 
-## Justificación de tecnologías
-#### React + TypeScript
-React es ideal para aplicaciones dinámicas y en tiempo real gracias a su virtual DOM y ecosistema. TypeScript añade tipado estático para mayor robustez y mantenibilidad.
+- **Framework:** React + TypeScript  
+  React provides a component-based architecture, ideal for dynamic real-time UIs. TypeScript adds static typing, improving robustness and maintainability.
 
-#### Redux Toolkit + RTK Query
-Para manejar estado global (ej: sesiones de usuario, disponibilidad de coaches) y caching de datos de APIs. RTK Query simplifica las llamadas asíncronas.
+- **State Management:** Redux Toolkit + RTK Query  
+  Redux Toolkit simplifies state management with predictable patterns. RTK Query adds efficient data fetching, caching, and auto-invalidation.
 
-#### Tailwind CSS
-Facilita el diseño responsive y consistente con utilidades CSS. Se integra bien con React y permite customización temática (light/dark mode).
+- **Styling:** Tailwind CSS  
+  Utility-first CSS for responsive design. Built-in support for dark/light themes and rapid customization.
 
-#### WebRTC
-Estándar para video y audio peer-to-peer. Se usará con librerías como Simple-Peer o Mediasoup para gestionar conexiones.
+- **Real-Time Video:** WebRTC (with Simple-Peer)  
+  Industry standard for P2P audio/video communication. Scalable for live coaching sessions.
 
-#### Socket.io
-Se usará para notificaciones push y cambios en tiempo real
+- **Real-Time Notifications:** Socket.io  
+  Enables push updates such as coach availability or session status changes.
 
-#### Jest
-Framework líder para pruebas en React. Se integra con React Testing Library para tests centrados en UX.
+- **Authentication:** Auth0 / AWS Cognito  
+  Secure authentication flows, MFA support, and role-based access control (Basic vs Premium User).
 
-#### Cypress
-Framework de pruebas para flujos críticos, como agendar sesiones o autenticación.
+- **Testing:**  
+  - **Unit & Component Tests:** Jest + React Testing Library  
+  - **End-to-End (E2E):** Cypress  
 
-#### Auth0
-Soluciones robustas con MFA, roles preconfigurados (BasicUser/PremiumUser) y SDKs para React. Auth0 ofrece interfaz de login personalizable.
+- **UX Prototyping:** Figma  
+- **UX Testing:** Maze (heatmaps, task completion rate).  
 
-#### Figma
-Permite colaboración en equipo y genera código cercano a React. Plugins para generar componentes desde diseños.
+- **Linting & Formatting:** ESLint + Prettier  
+  Ensures consistent code style and prevents common errors.
 
-#### Maze
-Para pruebas con usuarios. Genera heatmaps y métricas de usabilidad (ej: tasa de finalización de tareas).
+- **Monitoring & Logging:** Sentry  
+  Captures frontend errors in production with contextual information.
 
-#### ESLint + Prettier
-Mantienen consistencia en el código. Configuración personalizada con reglas para TypeScript y React.
+- **Build Tool:** Vite  
+  Faster build and dev server compared to Webpack.
 
-#### Sentry
-Captura errores en frontend con detalles de contexto. Ideal para debugging en producción.
+- **Deployment:** Vercel  
+  GitHub integration, preview deployments, and production hosting.
 
-#### Vite
-Más rápido que Webpack para desarrollo y builds.
+- **Package Manager:** Yarn  
+  Optimized for performance and monorepo support.
 
-#### Vercel
-Para entornos staging/producción. Tiene integración con GitHub y despliegue automático.
+- **Version Control:** GitHub  
+  Standard tool for collaboration and CI/CD pipelines.
 
-#### Yarn
-Gestor de paquetes seleccionado por performance y workspaces si se escala a monorepo.
+## N-Layer Architecture Design
+The /src directory follows a layered architecture (inspired by N-Layer and Clean Architecture).
+Each layer has a single responsibility and communicates only with adjacent layers.
+This structure improves maintainability, testability, and scalability of the frontend codebase.
 
-#### Github
-Convencional para mensajes claros en commits
+### Layer Responsibilities
 
-## Estructura del repositorio
+- **Components (`/components`)**  
+  Reusable UI blocks (atoms, molecules, organisms).  
+
+- **Containers (`/containers`)**  
+  Smart components that combine UI components with controllers.  
+
+- **Controllers (`/controllers`)**  
+  Hooks with business logic and state handling (`useAuthController`, `useCoachSearch`).  
+
+- **Models (`/models`)**  
+  Core domain entities (`Coach`, `Session`).  
+
+- **DTOs (`/dto`)**  
+  Data Transfer Objects defining contracts with backend APIs.  
+
+- **Services (`/services`)**  
+  Domain logic (e.g., `CoachService` handles coach operations).  
+
+- **Store (`/store`)**  
+  Redux Toolkit slices and hooks (`useAuthStore`, `useCoachStore`).  
+
+- **API (`/api`)**  
+  Abstracted API clients and Auth0 client (`apiClient`, `authClient`).  
+
+- **Listeners (`/listeners`)**  
+  Real-time handlers for WebRTC and Socket.io.  
+
+- **Validators (`/validators`)**  
+  Input validation logic for domain models.  
+
+- **Middleware (`/middleware`)**  
+  Request/response interceptors, auth, error handling, logging.  
+
+- **Exceptions (`/exceptions`)**  
+  Custom error classes for consistent error handling.  
+
+- **Utils (`/utils`)**  
+  Shared helpers (constants, formatting, logger).  
+
+- **Styles (`/styles`)**  
+  Tailwind configuration, theming, and global styles.  
 
 
-## Fechas importantes
-- Última fecha para preguntas: Lunes 22 de septiembre
-- Fecha límite de commits: Sábado 27 de septiembre
+
 
