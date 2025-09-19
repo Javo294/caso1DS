@@ -104,8 +104,154 @@ This structure improves maintainability, testability, and scalability of the fro
   Shared helpers (constants, formatting, logger).  
 
 - **Styles (`/styles`)**  
-  Tailwind configuration, theming, and global styles.  
+  Tailwind configuration, theming, and global styles.
+  
+---
 
+# System Architecture & Development Standards
+
+## 1. Logging
+**Location:** `/src/utils/logger.ts`  
+
+**Tool:** [Sentry]  
+
+**Base Class:**  
+- `Logger.ts`: A wrapper around the Sentry SDK that standardizes logging methods (`logInfo`, `logWarn`, `logError`).  
+
+**Structured Format:**  
+- Required fields: `timestamp`, `level`, `service`, `message`.  
+- Optional field: `userId`.  
+
+**Configuration:**  
+- Environment variables (`SENTRY_DSN`, `SENTRY_ENVIRONMENT`) managed via `.env`.  
+- Automatic error reporting for React runtime issues in production environments.  
+
+**Retention Policy:**  
+- Log retention duration is defined by the Sentry plan.  
+- Expired logs are archived within Sentry or exported in accordance with organizational policies.  
+
+---
+
+## 2. Background Jobs & Notifications
+**Location:**  
+- `/src/hooks/useNotifications.ts`  
+- `/src/services/socket.ts`  
+
+**Technologies:**  
+- **Socket.io** → real-time event notifications (e.g., session status, availability).  
+- **Browser Notifications API** → local client-side notifications.  
+
+**Design Pattern:** **Publisher/Subscriber**  
+- Event publishing: `socket.emit("event", payload)`.  
+- Event subscription: `socket.on("event", handler)`.  
+
+**Example:**  
+- `sessionCreated` event notifies both the coach and the user in real time.  
+
+---
+
+## 3. Linter & Code Standards
+**Configuration Files:**  
+- ESLint: `/.eslintrc.js`  
+- Prettier: `/.prettierrc`  
+- NPM scripts (`package.json`):  
+  - `"lint": "eslint 'src/**/*.{ts,tsx}' --fix"`  
+
+**Tools:** ESLint + Prettier  
+
+**Enforcement Strategy:**  
+- **Active:** `pre-commit` hook via Husky.  
+- **Passive:** manual execution of `yarn lint`.  
+
+**Core Rules:**  
+- Strict TypeScript typing (`strict: true`).  
+- Enforce absolute imports (`@/components`, `@/services`).  
+- Naming conventions:  
+  - PascalCase → React components.  
+  - camelCase → functions and variables.  
+- `any` type usage is prohibited unless explicitly documented.  
+
+---
+
+## 4. Services Layer
+**Location:** `/src/services`  
+
+**Examples:**  
+- `authService.ts`  
+- `sessionService.ts`  
+- `coachService.ts`  
+
+**Applied Pattern:** **Service Abstraction**  
+- Encapsulates business logic and API calls (using RTK Query).  
+
+**Constraints:**  
+- Services must not directly access the global state.  
+- They are only exposed through **Redux Toolkit slices**.  
+
+---
+
+## 5. Error Handling & Exceptions
+**Location:** `/src/utils/errors.ts`  
+
+**Custom Error Classes:**  
+- `AppError` → generic application error with `code`, `message`, and `context`.  
+- `AuthError` → authentication-related errors.  
+- `SessionError` → session-related errors.  
+
+**Integration Points:**  
+- `ErrorBoundary` (React) ensures runtime resilience in critical components.  
+- `Sentry` integration for stack trace capture and reporting.  
+
+---
+
+## 6. Middleware
+**Location:** `/src/middleware`  
+
+**Implemented Redux Middleware:**  
+- `authMiddleware.ts` → refreshes tokens (Auth0/AWS Cognito).  
+- `loggerMiddleware.ts` → records critical actions to Sentry.  
+- `errorMiddleware.ts` → converts runtime errors into Redux-manageable actions.  
+
+**Applied Pattern:** **Chain of Responsibility**  
+- Each middleware processes the action and forwards it down the chain.  
+
+---
+
+## 7. Build & Deployment Pipeline
+**Location:** `.github/workflows/ci.yml`  
+
+**Pipeline Stages:**  
+1. **Lint & Test**: ESLint, Jest, React Testing Library.  
+2. **Build**: Vite.  
+3. **Deploy**: Vercel (staging and production).  
+
+**Environment Configurations:**  
+- `.env.development` → local development.  
+- `.env.production` → production (Vercel).  
+
+**Secret Management:**  
+- Sensitive values stored in **Vercel Environment Variables**.  
+
+---
+
+## 8. Security Layer
+**Location:** `/src/components/auth`  
+
+**Authentication Framework:** Auth0 or AWS Cognito (depending on environment).  
+
+**Authentication Screens:**  
+- `Login.tsx`  
+- `ChangePassword.tsx`  
+- `ForgotPassword.tsx`  
+- `TwoFactorAuth.tsx`  
+
+**Configuration:**  
+- Environment variables (`AUTH0_CLIENT_ID`, `AUTH0_DOMAIN`) defined in `.env`.  
+- Token validation handled within Redux middleware.  
+
+**Security Rules:**  
+- `clientSecret` must never be exposed on the frontend.  
+- User roles (Basic vs Premium) are stored in `user.roles`.  
 
 
 
