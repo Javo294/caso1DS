@@ -253,5 +253,15 @@ This structure improves maintainability, testability, and scalability of the fro
 - `clientSecret` must never be exposed on the frontend.  
 - User roles (Basic vs Premium) are stored in `user.roles`.  
 
+---
 
+# N-Layer Architecture + Design Patterns
 
+| **Layer**                   | **Responsibility**                                                                 | **Applied Patterns**                                      | **Tools / Technologies**                         |
+|------------------------------|-------------------------------------------------------------------------------------|----------------------------------------------------------|--------------------------------------------------|
+| **Presentation (UI)**        | Render views, manage user interaction, navigation, and visual state.               | *Component-Based Architecture*, *Container/Presentational Pattern*. | React, TypeScript, Tailwind, Redux Toolkit (slices). |
+| **Controllers**              | Orchestrate use cases and communication between UI and services.                   | *Controller Pattern*, *Mediator* (coordinates flows).    | React Hooks + RTK Query (queries/mutations).     |
+| **Domain (Entities + Business Logic)** | Represent business rules (users, coaches, sessions).                         | *Domain Model Pattern*, *DTO Pattern*.                   | TypeScript (DTOs, Models).                       |
+| **Services**                 | Application logic, data access, and integration with external APIs.                 | *Service Layer Pattern*, *Dependency Injection*.         | ApiClient, AuthService, SessionService, etc.     |
+| **Infrastructure**           | Technical connections (REST API, WebRTC, Socket.io, Auth0).                        | *Adapter Pattern* (ApiClient), *Observer / Pub-Sub* (Socket.io). | WebRTC, Socket.io, Auth0, AWS Cognito, REST API. |
+| **Cross-Cutting (Middleware + Validation + Logging)** | Common functions spanning multiple layers (auth, logging, validation). | *Chain of Responsibility* (middlewares), *Decorator* (validators). | Express middlewares, Yup/Zod, Sentry.            |
