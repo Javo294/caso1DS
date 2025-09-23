@@ -108,13 +108,13 @@ This structure improves maintainability, testability, and scalability of the fro
 ## Diagramas
 
 ### 1. Diagrama de Clases  
-![Diagrama de Clases](./src/diagrams/Clases_Corregido.png)
+![Diagrama de Clases](./diagrams/Clases_Corregido.png)
 
 ### 2. Diagrama de Secuencia - Inicio de Sesión  
-![Secuencia Login](./src/diagrams/Secuencias_Inicio%20de%20Sesión.png)
+![Secuencia Login](./diagrams/Secuencias_Inicio%20de%20Sesión.png)
 
 ### 3. Diagrama de Secuencia - Agendar Sesión  
-![Secuencia Agendar](./src/diagrams/Secuencias_Agendar.png)
+![Secuencia Agendar](./diagrams/Secuencias_Agendar.png)
 
 ## 2. Background Jobs & Notifications
 **Location:**  
