@@ -12,50 +12,24 @@
 ## Brief Description
 Platform for instant connection between users and coaches for 20-minute sessions. This repository contains the front-end architecture proposal, PoC, unit tests, and implementation documentation. 
 
-### Chosen Stack
+### Stack
 
 - **Framework:** React + TypeScript  
-  React provides a component-based architecture, ideal for dynamic real-time UIs. TypeScript adds static typing, improving robustness and maintainability.
-
 - **State Management:** Redux Toolkit + RTK Query  
-  Redux Toolkit simplifies state management with predictable patterns. RTK Query adds efficient data fetching, caching, and auto-invalidation.
-
 - **Styling:** Tailwind CSS  
-  Utility-first CSS for responsive design. Built-in support for dark/light themes and rapid customization.
-
-- **Real-Time Video:** WebRTC (with Simple-Peer)  
-  Industry standard for P2P audio/video communication. Scalable for live coaching sessions.
-
-- **Real-Time Notifications:** Socket.io  
-  Enables push updates such as coach availability or session status changes.
-
-- **Authentication:** Auth0 / AWS Cognito  
-  Secure authentication flows, MFA support, and role-based access control (Basic vs Premium User).
-
+- **Real-Time Video:** WebRTC (via Simple-Peer)  
+- **Real-Time Notifications:** Socket.IO  
+- **Authentication:** AWS Cognito  
 - **Testing:**  
-  - **Unit & Component Tests:** Jest + React Testing Library  
-  - **End-to-End (E2E):** Cypress  
-
+  - Unit & Component: Jest + React Testing Library  
+  - End-to-End (E2E): Cypress  
 - **UX Prototyping:** Figma  
-- **UX Testing:** Maze (heatmaps, task completion rate).  
-
+- **UX Testing:** Maze  
 - **Linting & Formatting:** ESLint + Prettier  
-  Ensures consistent code style and prevents common errors.
-
 - **Monitoring & Logging:** Sentry  
-  Captures frontend errors in production with contextual information.
-
 - **Build Tool:** Vite  
-  Faster build and dev server compared to Webpack.
-
-- **Deployment:** Vercel  
-  GitHub integration, preview deployments, and production hosting.
-
-- **Package Manager:** Yarn  
-  Optimized for performance and monorepo support.
-
-- **Version Control:** GitHub  
-  Standard tool for collaboration and CI/CD pipelines.
+- **Deployment:** Vercel (Frontend Hosting)  
+- **Version Control:** GitHub 
 
 ## N-Layer Architecture Design
 The /src directory follows a layered architecture (inspired by N-Layer and Clean Architecture).
