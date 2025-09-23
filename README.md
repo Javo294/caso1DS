@@ -114,7 +114,7 @@ This structure improves maintainability, testability, and scalability of the fro
 ![Secuencia Login](./diagrams/Secuencias_Inicio%20de%20Sesión.png)
 
 ### 3. Diagrama de Secuencia - Agendar Sesión  
-![Secuencia Agendar](./diagrams/Secuencias_Agendar.png)
+![Secuencia Agendar](./diagrams/Seciencias_Agendar.png)
 
 ## 2. Background Jobs & Notifications
 **Location:**  
