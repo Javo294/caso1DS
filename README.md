@@ -105,6 +105,16 @@ This structure improves maintainability, testability, and scalability of the fro
 - Expired logs are archived within Sentry or exported in accordance with organizational policies.  
 
 ---
+## Diagramas
+
+### 1. Diagrama de Clases  
+![Diagrama de Clases](./src/diagrams/Clases_Corregido.png)
+
+### 2. Diagrama de Secuencia - Inicio de Sesión  
+![Secuencia Login](./src/diagrams/Secuencias_Inicio%20de%20Sesión.png)
+
+### 3. Diagrama de Secuencia - Agendar Sesión  
+![Secuencia Agendar](./src/diagrams/Secuencias_Agendar.png)
 
 ## 2. Background Jobs & Notifications
 **Location:**  
