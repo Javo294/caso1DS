@@ -310,6 +310,7 @@ Aquí va el código guía para el programador, falta agregarlo
 
 
 ---
+
 ## Diagramas
 
 ### 1. Diagrama de Clases  
@@ -321,6 +322,7 @@ Aquí va el código guía para el programador, falta agregarlo
 ### 3. Diagrama de Secuencia - Agendar Sesión  
 ![Secuencia Agendar](./diagrams/Seciencias_Agendar.png)
 
+--- 
 
 ### Design Patterns Applied
 
@@ -331,4 +333,13 @@ Aquí va el código guía para el programador, falta agregarlo
 | Observer / Pub-Sub | Listeners, Real-time Notifications |
 | Chain of Responsibility | Middleware (logger, auth, error) |
 | DTO | Data transfer between API and frontend models |
+
+---
+
+### Instrucciones de instalación/ejecución
+
+Acá se agregan las instrucciones
+
+---
+
 
