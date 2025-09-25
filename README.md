@@ -24,7 +24,7 @@ Platform for instant connection between users and coaches for 20-minute sessions
   - Unit & Component: Jest + React Testing Library  
   - End-to-End (E2E): Cypress  
 - **UX Prototyping:** Figma  
-- **UX Testing:** Maze  
+- **UX Testing:** Useberry  
 - **Linting & Formatting:** ESLint + Prettier  
 - **Monitoring & Logging:** Sentry  
 - **Build Tool:** Vite  
