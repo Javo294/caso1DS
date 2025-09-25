@@ -36,73 +36,278 @@ The /src directory follows a layered architecture (inspired by N-Layer and Clean
 Each layer has a single responsibility and communicates only with adjacent layers.
 This structure improves maintainability, testability, and scalability of the frontend codebase.
 
-### Layer Responsibilities
+### Layers and Responsibilities
 
-- **Components (`/components`)**  
-  Reusable UI blocks (atoms, molecules, organisms).  
+| Layer | Location | Responsibility | Design Patterns |
+|------|----------|----------------|----------------|
+| Presentation (UI) | [`/src/components`](https://github.com/Javo294/caso1DS/tree/main/src/components) | Renders views, user interaction, navigation | Container/Presentational |
+| Containers | [`/src/containers`](https://github.com/Javo294/caso1DS/tree/main/src/containers) | Combines UI components with controllers | Container Pattern |
+| Controllers | [`/src/controllers`](https://github.com/Javo294/caso1DS/tree/main/src/controllers) | Orchestrates use cases and service communication | Mediator, Hook-based |
+| Models | [`/src/models`](https://github.com/Javo294/caso1DS/tree/main/src/models) | Core domain entities | DTO, Strategy (validation) |
+| DTOs | [`/src/dto`](https://github.com/Javo294/caso1DS/tree/main/src/dto) | Data contracts with backend APIs | DTO |
+| Services | [`/src/services`](https://github.com/Javo294/caso1DS/tree/main/src/services) | Business logic and API calls | Service, Dependency Injection |
+| Store | [`/src/store`](https://github.com/Javo294/caso1DS/tree/main/src/store) | Global state management | Redux Toolkit slices |
+| API | [`/src/api`](https://github.com/Javo294/caso1DS/tree/main/src/api) | Clients for external APIs and Auth | Adapter, Proxy |
+| Listeners | [`/src/listeners`](https://github.com/Javo294/caso1DS/tree/main/src/listeners) | WebSockets, real-time events | Observer / Pub-Sub |
+| Middleware | [`/src/middleware`](https://github.com/Javo294/caso1DS/tree/main/src/middleware) | Request/response interceptors, logging, auth | Chain of Responsibility |
+| Exceptions | [`/src/exceptions`](https://github.com/Javo294/caso1DS/tree/main/src/exceptions) | Standardized error handling | Template Method |
+| Utils | [`/src/utils`](https://github.com/Javo294/caso1DS/tree/main/src/utils) | Shared functions and helpers (logger, constants, formatting) | Singleton (logger) |
+| Styles | [`/src/styles`](https://github.com/Javo294/caso1DS/tree/main/src/styles) | Tailwind configuration, themes | - |
+| Validators | [`/src/validators`](https://github.com/Javo294/caso1DS/tree/main/src/validators) | Validation of models and DTOs | Decorator |
 
-- **Containers (`/containers`)**  
-  Smart components that combine UI components with controllers.  
-
-- **Controllers (`/controllers`)**  
-  Hooks with business logic and state handling (`useAuthController`, `useCoachSearch`).  
-
-- **Models (`/models`)**  
-  Core domain entities (`Coach`, `Session`).  
-
-- **DTOs (`/dto`)**  
-  Data Transfer Objects defining contracts with backend APIs.  
-
-- **Services (`/services`)**  
-  Domain logic (e.g., `CoachService` handles coach operations).  
-
-- **Store (`/store`)**  
-  Redux Toolkit slices and hooks (`useAuthStore`, `useCoachStore`).  
-
-- **API (`/api`)**  
-  Abstracted API clients and Auth0 client (`apiClient`, `authClient`).  
-
-- **Listeners (`/listeners`)**  
-  Real-time handlers for WebRTC and Socket.io.  
-
-- **Validators (`/validators`)**  
-  Input validation logic for domain models.  
-
-- **Middleware (`/middleware`)**  
-  Request/response interceptors, auth, error handling, logging.  
-
-- **Exceptions (`/exceptions`)**  
-  Custom error classes for consistent error handling.  
-
-- **Utils (`/utils`)**  
-  Shared helpers (constants, formatting, logger).  
-
-- **Styles (`/styles`)**  
-  Tailwind configuration, theming, and global styles.
-  
 ---
 
 # System Architecture & Development Standards
 
-## 1. Logging
-**Location:** `/src/utils/logger.ts`  
+## Logging
+- **File:** [`/src/utils/logger.ts`](https://github.com/Javo294/caso1DS/blob/main/src/utils/logger.ts)  
+- **Framework:** Sentry  
+- **Base Class:** `Logger.ts` (Singleton)  
+- **Required Fields:** timestamp, level, service, message  
+- **Optional Fields:** userId  
+- **Environment Variables:** `SENTRY_DSN`, `SENTRY_ENVIRONMENT`  
+- **Usage Example:** 
+Aquí va el código guía para el programador, falta agregarlo
+---
 
-**Tool:** [Sentry]  
 
-**Base Class:**  
-- `Logger.ts`: A wrapper around the Sentry SDK that standardizes logging methods (`logInfo`, `logWarn`, `logError`).  
+## 2. Background Jobs & Notifications
+**Location:**  
+- **Files:**  
+  - [`/src/listeners/videoEvents.ts`](https://github.com/Javo294/caso1DS/blob/main/src/listeners/videoEvents.ts)  
+  - [`/src/listeners/websocket.ts`](https://github.com/Javo294/caso1DS/blob/main/src/listeners/websocket.ts)  
 
-**Structured Format:**  
-- Required fields: `timestamp`, `level`, `service`, `message`.  
-- Optional field: `userId`.  
+**Technologies:**  
+- **Socket.io** → real-time event notifications (e.g., session status, availability).  
+- **Browser Notifications API** → local client-side notifications.  
+
+**Design Pattern:** 
+-Publisher
+-Subscriber
+
+**Publisher Example:**  
+Aquí va el código guía para el programador, falta agregarlo
+**Suscriber Example:**  
+Aquí va el código guía para el programador, falta agregarlo
+
+---
+
+## 3. Linter & Code Standards
+**Configuration Files:**  
+- ESLint: `/.eslintrc.js`  
+- Prettier: `/.prettierrc`  
+- NPM scripts (`package.json`):  
+  - `"lint": "eslint 'src/**/*.{ts,tsx}' --fix"`  
+
+**Tools:** ESLint + Prettier  
+- **Rules:**  
+  - **Strict TypeScript typing** (`"strict": true` in `tsconfig.json`)  
+  - **Absolute imports** allowed (`@/components`, `@/services`, etc.)  
+  - **Naming conventions:**  
+    - `PascalCase` → Components  
+    - `camelCase` → Functions & variables  
+  - **`any` type** only allowed with explicit documentation
+ 
+  **Script de NPM:**
+  Aquí va el código guía para el programador, falta agregarlo
+---
+
+## 4. Services Layer
+- **Location:** [`/src/services`](https://github.com/Javo294/caso1DS/tree/main/src/services)  
+
+- **Examples:**  
+  - [`CoachService.ts`](https://github.com/Javo294/caso1DS/blob/main/src/services/CoachService.ts)  
+  - [`SessionService.ts`](https://github.com/Javo294/caso1DS/blob/main/src/services/SessionService.ts)  
+
+- **Pattern:** Service + Dependency Injection  
+
+- **Restrictions:**  
+  - Services **do not access the global state directly**.  
+  - Services are exposed only through **Redux Toolkit slices**.  
+
+- **Example Usage:**
+    Aquí va el código guía para el programador, falta agregarlo
+---
+
+## 5. Error Handling & Exceptions
+- **File:** [`/src/exceptions`](https://github.com/Javo294/caso1DS/tree/main/src/exceptions)  
+
+- **Classes:**  
+  - [`BaseException.ts`](https://github.com/Javo294/caso1DS/blob/main/src/exceptions/BaseException.ts) → abstract base class for custom errors.  
+  - [`AuthException.ts`](https://github.com/Javo294/caso1DS/blob/main/src/exceptions/AuthException.ts) → handles authentication/authorization errors.  
+  
+
+- **Integration:**  
+  - **React ErrorBoundary** → captures unhandled runtime errors in React components.  
+  - **Sentry** → tracks, archives, and exports logs in accordance with organizational policies.  
+- **Example Implementation:**  
+Aquí va el código guía para el programador, falta agregarlo
+---
+
+## 6. Middleware
+- **Location:** [`/src/middleware`](https://github.com/Javo294/caso1DS/tree/main/src/middleware)  
+
+
+**Implemented Redux Middleware:**  
+- [`authMiddleware.ts`](https://github.com/Javo294/caso1DS/blob/main/src/middleware/authMiddleware.ts) → validates authentication & permissions.  
+  - [`logMiddleware.ts`](https://github.com/Javo294/caso1DS/blob/main/src/middleware/logMiddleware.ts) → structured logging for requests and state changes.  
+  - [`errorMiddleware.ts`](https://github.com/Javo294/caso1DS/blob/main/src/middleware/errorMiddleware.ts) → catches and forwards errors.  
+
+- **Pattern:**  
+  Implements **Chain of Responsibility**, where each middleware handles a specific concern and passes control to the next.  
+
+- **Usage Example:**
+Aquí va el código guía para el programador, falta agregarlo
+---
+
+## 7. Build & Deployment Pipeline
+**Location:** falta agregarla
+
+**Pipeline Stages:**  
+  1. **Lint & Test** → runs ESLint + Jest tests to validate code quality.  
+  2. **Build** → compiles with Vite.  
+  3. **Deploy** → deploys automatically to Vercel.  
+
+
+**Environment Configurations:**  
+- `.env.development` → local development.  
+- `.env.production` → production (Vercel).  
+
+**Secret Management:**  
+- Sensitive values stored in **Vercel Environment Variables**.
+- 
+- **Basic Commands:**
+Aquí va el código guía para el programador, falta agregarlo
+---
+
+## 8. Security & Validators
+**Location:** falta agregar
+
+**Authentication Framework:** falta agregar
+
+**Authentication Screens:**  
+falta agregar
 
 **Configuration:**  
-- Environment variables (`SENTRY_DSN`, `SENTRY_ENVIRONMENT`) managed via `.env`.  
-- Automatic error reporting for React runtime issues in production environments.  
+falta agregar
 
-**Retention Policy:**  
-- Log retention duration is defined by the Sentry plan.  
-- Expired logs are archived within Sentry or exported in accordance with organizational policies.  
+**Security Rules:**  
+falta agregar
+
+---
+
+## Validators
+
+### Files
+- [`CoachValidator.ts`](https://github.com/Javo294/caso1DS/blob/main/src/validators/CoachValidator.ts)
+- [`SessionValidator.ts`](https://github.com/Javo294/caso1DS/blob/main/src/validators/SessionValidator.ts)
+
+### Purpose
+These validators enforce rules and constraints on the domain models before any business logic or API calls are executed. They follow the **Decorator** pattern to allow flexible and reusable validations.
+
+### Example Usage
+Aquí va el código guía para el programador, falta agregarlo
+
+---
+
+
+## Session State
+
+### Allowed States
+- `requested`
+- `accepted`
+- `inCall`
+- `ended`
+
+### Maximum Duration
+- Each session lasts up to **20 minutes**.
+
+### Subscription Plans
+| Plan | Price | Sessions per Month |
+|------|-------|------------------|
+| Basic | $20  | 2 sessions       |
+| Premium | $60 | 8 sessions       |
+
+---
+
+## DTOs (Data Transfer Objects)
+
+### Location
+- [`/src/dto`](https://github.com/Javo294/caso1DS/tree/main/src/dto)
+
+### Purpose
+DTOs define the structure of the data that moves between the frontend and backend. They enforce contracts, ensure type safety, and simplify data transformations.
+
+### Examples
+- [`CoachDTO.ts`](https://github.com/Javo294/caso1DS/blob/main/src/dto/CoachDTO.ts)
+- [`SessionDTO.ts`](https://github.com/Javo294/caso1DS/blob/main/src/dto/SessionDTO.ts)
+
+### Transformation Example
+Aquí va el código guía para el programador, falta agregarlo
+
+---
+
+## State Management 
+
+### Location
+- [`/src/store`](https://github.com/Javo294/caso1DS/tree/main/src/store)
+
+### Purpose
+Manage global state in a predictable way using Redux Toolkit slices and hooks. Each slice is responsible for a specific domain (Auth, Coach, Session).
+
+### Slices
+- [`useAuthStore.ts`](https://github.com/Javo294/caso1DS/blob/main/src/store/useAuthStore.ts)
+- [`useCoachStore.ts`](https://github.com/Javo294/caso1DS/blob/main/src/store/useCoachStore.ts)
+- [`useSessionStore.ts`](https://github.com/Javo294/caso1DS/blob/main/src/store/useSessionStore.ts)
+
+### Example: 
+Aquí va el código guía para el programador, falta agregarlo
+
+---
+
+## Styles / Themes
+
+### Location
+- [`/src/styles`](https://github.com/Javo294/caso1DS/tree/main/src/styles)
+
+### Purpose
+Manage global styles, themes, and responsive design using Tailwind CSS.
+
+### Files
+- [`index.css`](https://github.com/Javo294/caso1DS/blob/main/src/styles/index.css) → Global CSS import, Tailwind base, components, and utilities.
+- [`tailwind.config.ts`](https://github.com/Javo294/caso1DS/blob/main/src/styles/tailwind.config.ts) → Tailwind configuration, custom colors, breakpoints, and plugins.
+- [`themes.ts`](https://github.com/Javo294/caso1DS/blob/main/src/styles/themes.ts) → Theme definitions, e.g., dark/light mode, shared colors, font sizes.
+
+### Example: 
+Aquí va el código guía para el programador, falta agregarlo
+
+---
+
+## Utilities / Helpers
+
+### Location
+- [`/src/utils`](https://github.com/Javo294/caso1DS/tree/main/src/utils)
+
+### Purpose
+Shared helper functions and constants used across the frontend. Includes formatting utilities, global constants, and logging.
+
+### Files and Examples
+
+- [`constants.ts`](https://github.com/Javo294/caso1DS/blob/main/src/utils/constants.ts)  
+  Contains global constants for the application.
+  
+Aquí va el código guía para el programador, falta agregarlo
+
+- [`formatTime.ts`](https://github.com/Javo294/caso1DS/blob/main/src/utils/formatTime.ts)  
+  Utility functions for formatting date and time.
+  
+Aquí va el código guía para el programador, falta agregarlo
+
+- [`logger.ts`](https://github.com/Javo294/caso1DS/blob/main/src/utils/logger.ts)  
+  Singleton logger for application-wide logging using Sentry.
+  
+Aquí va el código guía para el programador, falta agregarlo
+
 
 ---
 ## Diagramas
@@ -116,136 +321,14 @@ This structure improves maintainability, testability, and scalability of the fro
 ### 3. Diagrama de Secuencia - Agendar Sesión  
 ![Secuencia Agendar](./diagrams/Seciencias_Agendar.png)
 
-## 2. Background Jobs & Notifications
-**Location:**  
-- `/src/hooks/useNotifications.ts`  
-- `/src/services/socket.ts`  
 
-**Technologies:**  
-- **Socket.io** → real-time event notifications (e.g., session status, availability).  
-- **Browser Notifications API** → local client-side notifications.  
+### Design Patterns Applied
 
-**Design Pattern:** **Publisher/Subscriber**  
-- Event publishing: `socket.emit("event", payload)`.  
-- Event subscription: `socket.on("event", handler)`.  
+| Pattern | Usage |
+|---------|-------|
+| Singleton | Logger, Helpers |
+| Strategy | Validators (CoachValidator, SessionValidator) |
+| Observer / Pub-Sub | Listeners, Real-time Notifications |
+| Chain of Responsibility | Middleware (logger, auth, error) |
+| DTO | Data transfer between API and frontend models |
 
-**Example:**  
-- `sessionCreated` event notifies both the coach and the user in real time.  
-
----
-
-## 3. Linter & Code Standards
-**Configuration Files:**  
-- ESLint: `/.eslintrc.js`  
-- Prettier: `/.prettierrc`  
-- NPM scripts (`package.json`):  
-  - `"lint": "eslint 'src/**/*.{ts,tsx}' --fix"`  
-
-**Tools:** ESLint + Prettier  
-
-**Enforcement Strategy:**  
-- **Active:** `pre-commit` hook via Husky.  
-- **Passive:** manual execution of `yarn lint`.  
-
-**Core Rules:**  
-- Strict TypeScript typing (`strict: true`).  
-- Enforce absolute imports (`@/components`, `@/services`).  
-- Naming conventions:  
-  - PascalCase → React components.  
-  - camelCase → functions and variables.  
-- `any` type usage is prohibited unless explicitly documented.  
-
----
-
-## 4. Services Layer
-**Location:** `/src/services`  
-
-**Examples:**  
-- `authService.ts`  
-- `sessionService.ts`  
-- `coachService.ts`  
-
-**Applied Pattern:** **Service Abstraction**  
-- Encapsulates business logic and API calls (using RTK Query).  
-
-**Constraints:**  
-- Services must not directly access the global state.  
-- They are only exposed through **Redux Toolkit slices**.  
-
----
-
-## 5. Error Handling & Exceptions
-**Location:** `/src/utils/errors.ts`  
-
-**Custom Error Classes:**  
-- `AppError` → generic application error with `code`, `message`, and `context`.  
-- `AuthError` → authentication-related errors.  
-- `SessionError` → session-related errors.  
-
-**Integration Points:**  
-- `ErrorBoundary` (React) ensures runtime resilience in critical components.  
-- `Sentry` integration for stack trace capture and reporting.  
-
----
-
-## 6. Middleware
-**Location:** `/src/middleware`  
-
-**Implemented Redux Middleware:**  
-- `authMiddleware.ts` → refreshes tokens (Auth0/AWS Cognito).  
-- `loggerMiddleware.ts` → records critical actions to Sentry.  
-- `errorMiddleware.ts` → converts runtime errors into Redux-manageable actions.  
-
-**Applied Pattern:** **Chain of Responsibility**  
-- Each middleware processes the action and forwards it down the chain.  
-
----
-
-## 7. Build & Deployment Pipeline
-**Location:** `.github/workflows/ci.yml`  
-
-**Pipeline Stages:**  
-1. **Lint & Test**: ESLint, Jest, React Testing Library.  
-2. **Build**: Vite.  
-3. **Deploy**: Vercel (staging and production).  
-
-**Environment Configurations:**  
-- `.env.development` → local development.  
-- `.env.production` → production (Vercel).  
-
-**Secret Management:**  
-- Sensitive values stored in **Vercel Environment Variables**.  
-
----
-
-## 8. Security Layer
-**Location:** `/src/components/auth`  
-
-**Authentication Framework:** Auth0 or AWS Cognito (depending on environment).  
-
-**Authentication Screens:**  
-- `Login.tsx`  
-- `ChangePassword.tsx`  
-- `ForgotPassword.tsx`  
-- `TwoFactorAuth.tsx`  
-
-**Configuration:**  
-- Environment variables (`AUTH0_CLIENT_ID`, `AUTH0_DOMAIN`) defined in `.env`.  
-- Token validation handled within Redux middleware.  
-
-**Security Rules:**  
-- `clientSecret` must never be exposed on the frontend.  
-- User roles (Basic vs Premium) are stored in `user.roles`.  
-
----
-
-# N-Layer Architecture + Design Patterns
-
-| **Layer**                   | **Responsibility**                                                                 | **Applied Patterns**                                      | **Tools / Technologies**                         |
-|------------------------------|-------------------------------------------------------------------------------------|----------------------------------------------------------|--------------------------------------------------|
-| **Presentation (UI)**        | Render views, manage user interaction, navigation, and visual state.               | *Component-Based Architecture*, *Container/Presentational Pattern*. | React, TypeScript, Tailwind, Redux Toolkit (slices). |
-| **Controllers**              | Orchestrate use cases and communication between UI and services.                   | *Controller Pattern*, *Mediator* (coordinates flows).    | React Hooks + RTK Query (queries/mutations).     |
-| **Domain (Entities + Business Logic)** | Represent business rules (users, coaches, sessions).                         | *Domain Model Pattern*, *DTO Pattern*.                   | TypeScript (DTOs, Models).                       |
-| **Services**                 | Application logic, data access, and integration with external APIs.                 | *Service Layer Pattern*, *Dependency Injection*.         | ApiClient, AuthService, SessionService, etc.     |
-| **Infrastructure**           | Technical connections (REST API, WebRTC, Socket.io, Auth0).                        | *Adapter Pattern* (ApiClient), *Observer / Pub-Sub* (Socket.io). | WebRTC, Socket.io, Auth0, AWS Cognito, REST API. |
-| **Cross-Cutting (Middleware + Validation + Logging)** | Common functions spanning multiple layers (auth, logging, validation). | *Chain of Responsibility* (middlewares), *Decorator* (validators). | Express middlewares, Yup/Zod, Sentry.            |
