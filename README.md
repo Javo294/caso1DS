@@ -345,9 +345,10 @@ Este proyecto no requiere instalación local de software adicional para visualiz
 
 2. Dentro de ese documento encontrarás el enlace directo al prototipo.  
    También puedes accederlo directamente desde aquí:  
-    [Prototipo en Figma](https://id-del-barco-33315748.figma.site/)
+    [Prototipo en Figma](https://boat-id-33315748.figma.site/)
+  
 
-3. Abre el enlace en cualquier navegador actualizado (se recomienda **Google Chrome** o **Mozilla Firefox**).  
+4. Abre el enlace en cualquier navegador actualizado (se recomienda **Google Chrome** o **Mozilla Firefox**).  
    - No se necesita instalación adicional.  
    - El prototipo es interactivo y se puede navegar como una aplicación real. 
 
