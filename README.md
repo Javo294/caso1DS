@@ -68,11 +68,9 @@ This structure improves maintainability, testability, and scalability of the fro
 - **Environment Variables:** `SENTRY_DSN`, `SENTRY_ENVIRONMENT`
 
 # Class Definition and Validators
-
 The `Logger` class centralizes event logging in the application, ensuring consistency and correct formatting.
 
 ## Log Fields
-
 - **timestamp:** date and time of the event (ISO 8601).
 - **level:** log level (ERROR, WARN, INFO, DEBUG).
 - **service:** name of the service generating the log.
@@ -81,16 +79,13 @@ The `Logger` class centralizes event logging in the application, ensuring consis
 - **extra** (optional): additional relevant information.
 
 ## Validators / Formatters
-
 - `timestamp` is automatically generated in ISO 8601 format.
 - `level` is normalized according to the `LogLevel` enum.
 - `service` is defined in the logger instance.
 - `userId` is automatically obtained from `localStorage` based on authentication status.
 
-
 # Log Storage and Retention
 Logs are sent to Sentry as the primary storage.
-
 - **Service Name:** each log includes the `service` field to identify the source.
 - **Retention Time:** configurable according to the provider's plan.
 - **Expiration:** expired logs can be moved to cheaper storage such as AWS S3 or Google Cloud Storage, reducing costs.
@@ -121,24 +116,20 @@ Aquí va el código guía para el programador, falta agregarlo
 -Subscriber
 
 # PublisherBase
-
 Create an abstract class `PublisherBase` with a method `publish(event: string, payload: any)`.
 All classes that send notifications must inherit from this class.
 
 # SubscriberBase
-
 Create an abstract class `SubscriberBase` with a method `handleEvent(event: string, payload: any)`.
 All classes that receive events must inherit from this class.
 
 # Creating Publishers
-
 **Location:** `services` or `controllers`  aquí falta copiar el enlace
 **Tasks:**
 - Create a class that inherits from `PublisherBase`.
 - Implement the `publish` method to send events via Socket.io or another event bus.
 
 # Creating Subscribers
-
 **Location:** `/src/listeners/`  aquí falta copiar el enlace
 **Tasks:**
 - Create a class that inherits from `SubscriberBase`.
