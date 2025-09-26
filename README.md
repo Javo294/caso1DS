@@ -338,7 +338,18 @@ Aquí va el código guía para el programador, falta agregarlo
 
 ### Instrucciones de instalación/ejecución
 
-Acá se agregan las instrucciones
+Este proyecto no requiere instalación local de software adicional para visualizar el prototipo, ya que se encuentra alojado en **Figma**.  
+
+1. Dirígete a la carpeta del repositorio:  
+   [`UX & Security/Prototipo.md`](./UX%20&%20Security/Prototipo.md)
+
+2. Dentro de ese documento encontrarás el enlace directo al prototipo.  
+   También puedes accederlo directamente desde aquí:  
+    [Prototipo en Figma](https://id-del-barco-33315748.figma.site/)
+
+3. Abre el enlace en cualquier navegador actualizado (se recomienda **Google Chrome** o **Mozilla Firefox**).  
+   - No se necesita instalación adicional.  
+   - El prototipo es interactivo y se puede navegar como una aplicación real. 
 
 ---
 
