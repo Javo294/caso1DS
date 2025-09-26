@@ -62,16 +62,51 @@ This structure improves maintainability, testability, and scalability of the fro
 ## Logging
 - **File:** [`/src/utils/logger.ts`](https://github.com/Javo294/caso1DS/blob/main/src/utils/logger.ts)  
 - **Framework:** Sentry  
-- **Base Class:** `Logger.ts` (Singleton)  
+- **Base Class:** `Logger.ts` (Singleton)
 - **Required Fields:** timestamp, level, service, message  
 - **Optional Fields:** userId  
-- **Environment Variables:** `SENTRY_DSN`, `SENTRY_ENVIRONMENT`  
+- **Environment Variables:** `SENTRY_DSN`, `SENTRY_ENVIRONMENT`
+
+# Class Definition and Validators
+
+The `Logger` class centralizes event logging in the application, ensuring consistency and correct formatting.
+
+## Log Fields
+
+- **timestamp:** date and time of the event (ISO 8601).
+- **level:** log level (ERROR, WARN, INFO, DEBUG).
+- **service:** name of the service generating the log.
+- **message:** descriptive message of the event.
+- **userId** (optional): identifier of the user associated with the event.
+- **extra** (optional): additional relevant information.
+
+## Validators / Formatters
+
+- `timestamp` is automatically generated in ISO 8601 format.
+- `level` is normalized according to the `LogLevel` enum.
+- `service` is defined in the logger instance.
+- `userId` is automatically obtained from `localStorage` based on authentication status.
+
+
+# Log Storage and Retention
+Logs are sent to Sentry as the primary storage.
+
+- **Service Name:** each log includes the `service` field to identify the source.
+- **Retention Time:** configurable according to the provider's plan.
+- **Expiration:** expired logs can be moved to cheaper storage such as AWS S3 or Google Cloud Storage, reducing costs.
+
+# Flow According to Architecture
+- Services (Auth, Coach, Session, etc.) generate logs using `Logger.getInstance().log(...)`.
+- The `Logger` class validates and formats the logs.
+- Logs are sent to Sentry in real time.
+- Expired logs are archived to cheaper storage if historical data is needed.
+  
 - **Usage Example:** 
 Aquí va el código guía para el programador, falta agregarlo
+
 ---
 
-
-## 2. Background Jobs & Notifications
+## Background Jobs & Notifications
 **Location:**  
 - **Files:**  
   - [`/src/listeners/videoEvents.ts`](https://github.com/Javo294/caso1DS/blob/main/src/listeners/videoEvents.ts)  
@@ -81,9 +116,43 @@ Aquí va el código guía para el programador, falta agregarlo
 - **Socket.io** → real-time event notifications (e.g., session status, availability).  
 - **Browser Notifications API** → local client-side notifications.  
 
-**Design Pattern:** 
+**Observer Pattern:** 
 -Publisher
 -Subscriber
+
+# PublisherBase
+
+Create an abstract class `PublisherBase` with a method `publish(event: string, payload: any)`.
+All classes that send notifications must inherit from this class.
+
+# SubscriberBase
+
+Create an abstract class `SubscriberBase` with a method `handleEvent(event: string, payload: any)`.
+All classes that receive events must inherit from this class.
+
+# Creating Publishers
+
+**Location:** `services` or `controllers`  aquí falta copiar el enlace
+**Tasks:**
+- Create a class that inherits from `PublisherBase`.
+- Implement the `publish` method to send events via Socket.io or another event bus.
+
+# Creating Subscribers
+
+**Location:** `/src/listeners/`  aquí falta copiar el enlace
+**Tasks:**
+- Create a class that inherits from `SubscriberBase`.
+- Implement the `handleEvent` method to process the received event.
+- Notify the user via Browser Notifications or by integrating a push service.
+
+# Additional Considerations
+
+**Push Notification Provider:**
+- Must map mobile devices (IMEI or token) to send specific notifications.
+
+**Layer Separation:**
+- **Publishers:** generate events → located in `services` or `controllers`.  
+- **Subscribers:** receive events → located in `listeners`.
 
 **Publisher Example:**  
 Aquí va el código guía para el programador, falta agregarlo
@@ -92,7 +161,7 @@ Aquí va el código guía para el programador, falta agregarlo
 
 ---
 
-## 3. Linter & Code Standards
+## Linter & Code Standards
 **Configuration Files:**  
 - ESLint: `/.eslintrc.js`  
 - Prettier: `/.prettierrc`  
@@ -110,41 +179,63 @@ Aquí va el código guía para el programador, falta agregarlo
  
   **Script de NPM:**
   Aquí va el código guía para el programador, falta agregarlo
+
+  EN ESTA SECCIÓN HACEN FALTA MEJORAS
 ---
 
-## 4. Services Layer
+## Services Layer
 - **Location:** [`/src/services`](https://github.com/Javo294/caso1DS/tree/main/src/services)  
 
 - **Examples:**  
   - [`CoachService.ts`](https://github.com/Javo294/caso1DS/blob/main/src/services/CoachService.ts)  
-  - [`SessionService.ts`](https://github.com/Javo294/caso1DS/blob/main/src/services/SessionService.ts)  
-
+  - [`SessionService.ts`](https://github.com/Javo294/caso1DS/blob/main/src/services/SessionService.ts)
+   - [`ServiceTemplate.ts `](https://github.com/Javo294/caso1DS/blob/main/src/services/ServiceTemplate.ts )
 - **Pattern:** Service + Dependency Injection  
+# Structure
+src/
+ └─ services/
+     ├─ CoachService.ts
+     ├─ SessionService.ts
+     ├─ ServiceTemplate.ts  (parent class or interface for all services)
+     
+## ServiceTemplate.ts
+- Base class inherited by each service.
+- Contains permission validation and common methods.
+- Serves as a reference for creating new services.
 
+## Middlewares
+- Each service can communicate with authorized middlewares.
+
+## Dependency Injection
+- Inject dependencies (repositories, external APIs) through the service constructor.
+- This enables unit testing and decoupling of services.
+  
 - **Restrictions:**  
   - Services **do not access the global state directly**.  
-  - Services are exposed only through **Redux Toolkit slices**.  
+  - Services are exposed only through **Redux Toolkit slices**.
 
 - **Example Usage:**
     Aquí va el código guía para el programador, falta agregarlo
 ---
 
-## 5. Error Handling & Exceptions
+## Error Handling & Exceptions
 - **File:** [`/src/exceptions`](https://github.com/Javo294/caso1DS/tree/main/src/exceptions)  
 
 - **Classes:**  
   - [`BaseException.ts`](https://github.com/Javo294/caso1DS/blob/main/src/exceptions/BaseException.ts) → abstract base class for custom errors.  
   - [`AuthException.ts`](https://github.com/Javo294/caso1DS/blob/main/src/exceptions/AuthException.ts) → handles authentication/authorization errors.  
   
-
 - **Integration:**  
   - **React ErrorBoundary** → captures unhandled runtime errors in React components.  
   - **Sentry** → tracks, archives, and exports logs in accordance with organizational policies.  
 - **Example Implementation:**  
 Aquí va el código guía para el programador, falta agregarlo
+
+EN ESTA SECCIÓN HACE FALTA AGREGAR INFORMACIÓN
+
 ---
 
-## 6. Middleware
+## Middleware
 - **Location:** [`/src/middleware`](https://github.com/Javo294/caso1DS/tree/main/src/middleware)  
 
 
@@ -156,11 +247,23 @@ Aquí va el código guía para el programador, falta agregarlo
 - **Pattern:**  
   Implements **Chain of Responsibility**, where each middleware handles a specific concern and passes control to the next.  
 
+# How to Use Middlewares
+
+## Layers Where They Can Be Applied
+- **authMiddleware** → only in the Services Layer, to validate permissions before executing business logic.  
+- **logMiddleware** → can be applied in Services and Controllers, to record requests and state changes without affecting the main logic.  
+- **errorMiddleware** → can be applied in any layer where exception handling is needed, including Services, Controllers, and Proxies.
+
+## Integration with Logging and Exception Handling
+- `logMiddleware` must integrate with the centralized Logger (Sentry) to maintain uniform traceability.  
+- `errorMiddleware` must forward exceptions to the Logger and/or a monitoring service, following the log retention rules defined previously.
+
 - **Usage Example:**
 Aquí va el código guía para el programador, falta agregarlo
+
 ---
 
-## 7. Build & Deployment Pipeline
+## Build & Deployment Pipeline
 **Location:** falta agregarla
 
 **Pipeline Stages:**  
@@ -175,18 +278,21 @@ Aquí va el código guía para el programador, falta agregarlo
 
 **Secret Management:**  
 - Sensitive values stored in **Vercel Environment Variables**.
-- 
+  
 - **Basic Commands:**
 Aquí va el código guía para el programador, falta agregarlo
+
+EN ESTA SECCIÓN FALTA AGREGAR INFORMACIÓN DE CONFIGURACIÓN DE ENTORNOS,Pipeline Stages...
+
 ---
 
-## 8. Security & Validators
+## Security & Validators
 **Location:** falta agregar
 
 **Authentication Framework:** falta agregar
 
 **Authentication Screens:**  
-falta agregar
+
 
 **Configuration:**  
 falta agregar
@@ -214,10 +320,10 @@ Aquí va el código guía para el programador, falta agregarlo
 ## Session State
 
 ### Allowed States
-- `requested`
-- `accepted`
-- `inCall`
-- `ended`
+- `requested` solicitud de sesión creada
+- `accepted` sesión aceptada por el coach
+- `inCall` sesión en progreso
+- `ended` sesión finalizada
 
 ### Maximum Duration
 - Each session lasts up to **20 minutes**.
