@@ -345,7 +345,7 @@ This project does not require any additional local software installation to view
 
 2. Inside that document, you will find the direct link to the prototype.  
    You can also access it directly here:  
-   👉 [Prototype in Figma](https://id-del-barco-33315748.figma.site/)
+   [Prototype in Figma](https://boat-id-33315748.figma.site/)
 
 3. Open the link in any up-to-date browser (Google Chrome or Mozilla Firefox is recommended).  
    - No additional installation is required.  
