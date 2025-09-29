@@ -12,7 +12,7 @@
 ## Brief Description
 Platform for instant connection between users and coaches for 20-minute sessions. This repository contains the front-end architecture proposal, PoC, unit tests, and implementation documentation. 
 
-### Stack
+### 1)Stack
 
 - **Framework:** React + TypeScript  
 - **State Management:** Redux Toolkit + RTK Query  
@@ -31,12 +31,12 @@ Platform for instant connection between users and coaches for 20-minute sessions
 - **Deployment:** Vercel (Frontend Hosting)  
 - **Version Control:** GitHub 
 
-## N-Layer Architecture Design
+## 2)N-Layer Architecture Design
 The /src directory follows a layered architecture (inspired by N-Layer and Clean Architecture).
 Each layer has a single responsibility and communicates only with adjacent layers.
 This structure improves maintainability, testability, and scalability of the frontend codebase.
 
-### Layers and Responsibilities
+### 2.1) Layers and Responsibilities
 
 | Layer | Location | Responsibility | Design Patterns |
 |------|----------|----------------|----------------|
@@ -57,20 +57,20 @@ This structure improves maintainability, testability, and scalability of the fro
 
 ---
 
-# System Architecture & Development Standards
+# 3)System Architecture & Development Standards
 
-## Logging
+## 3.1)Logging
 - **File:** [`/src/utils/logger.ts`](https://github.com/Javo294/caso1DS/blob/main/src/utils/logger.ts)  
 - **Framework:** Sentry  
 - **Base Class:** `Logger.ts` (Singleton)
-- **Required Fields:** timestamp, level, service, message  
+- **3Required Fields:** timestamp, level, service, message  
 - **Optional Fields:** userId  
 - **Environment Variables:** `SENTRY_DSN`, `SENTRY_ENVIRONMENT`
 
-# Class Definition and Validators
+# 3.1.1)Class Definition and Validators
 The `Logger` class centralizes event logging in the application, ensuring consistency and correct formatting.
 
-## Log Fields
+## 3.1.2)Log Fields
 - **timestamp:** date and time of the event (ISO 8601).
 - **level:** log level (ERROR, WARN, INFO, DEBUG).
 - **service:** name of the service generating the log.
@@ -78,19 +78,19 @@ The `Logger` class centralizes event logging in the application, ensuring consis
 - **userId** (optional): identifier of the user associated with the event.
 - **extra** (optional): additional relevant information.
 
-## Validators / Formatters
+## 3.1.3)Validators / Formatters
 - `timestamp` is automatically generated in ISO 8601 format.
 - `level` is normalized according to the `LogLevel` enum.
 - `service` is defined in the logger instance.
 - `userId` is automatically obtained from `localStorage` based on authentication status.
 
-# Log Storage and Retention
+# 3.1.4)Log Storage and Retention
 Logs are sent to Sentry as the primary storage.
 - **Service Name:** each log includes the `service` field to identify the source.
-- **Retention Time:** configurable according to the provider's plan.
-- **Expiration:** expired logs can be moved to cheaper storage such as AWS S3 or Google Cloud Storage, reducing costs.
+- **Retention Time:** 60 days.
+- **Expiration:** expired records will be moved to less expensive storage, namely Google Cloud Storage, which reduces costs.
 
-# Flow According to Architecture
+# 3.1.5)Flow According to Architecture
 - Services (Auth, Coach, Session, etc.) generate logs using `Logger.getInstance().log(...)`.
 - The `Logger` class validates and formats the logs.
 - Logs are sent to Sentry in real time.
@@ -101,17 +101,17 @@ Aquí va el código guía para el programador, falta agregarlo
 
 ---
 
-## Background Jobs & Notifications
-**Location:**  
+## 3.2)Background Jobs & Notifications
+**3.2.1)Location:**  
 - **Files:**  
   - [`/src/listeners/videoEvents.ts`](https://github.com/Javo294/caso1DS/blob/main/src/listeners/videoEvents.ts)  
   - [`/src/listeners/websocket.ts`](https://github.com/Javo294/caso1DS/blob/main/src/listeners/websocket.ts)  
 
-**Technologies:**  
+**3.2.2)Technologies:**  
 - **Socket.io** → real-time event notifications (e.g., session status, availability).  
 - **Browser Notifications API** → local client-side notifications.  
 
-**Observer Pattern:** 
+**3.2.3)Observer Pattern:** 
 -Publisher
 -Subscriber
 
@@ -136,7 +136,7 @@ All classes that receive events must inherit from this class.
 - Implement the `handleEvent` method to process the received event.
 - Notify the user via Browser Notifications or by integrating a push service.
 
-# Additional Considerations
+# 3.2.4)Additional Considerations
 
 **Push Notification Provider:**
 - Must map mobile devices (IMEI or token) to send specific notifications.
@@ -152,7 +152,7 @@ Aquí va el código guía para el programador, falta agregarlo
 
 ---
 
-## Linter & Code Standards
+## 3.3)Linter & Code Standards
 **Configuration Files:**  
 - ESLint: `/.eslintrc.js`  
 - Prettier: `/.prettierrc`  
@@ -174,7 +174,7 @@ Aquí va el código guía para el programador, falta agregarlo
   EN ESTA SECCIÓN HACEN FALTA MEJORAS
 ---
 
-## Services Layer
+## 4)Services Layer
 - **Location:** [`/src/services`](https://github.com/Javo294/caso1DS/tree/main/src/services)  
 
 - **Examples:**  
@@ -209,7 +209,7 @@ src/
     Aquí va el código guía para el programador, falta agregarlo
 ---
 
-## Error Handling & Exceptions
+## 5)Error Handling & Exceptions
 - **File:** [`/src/exceptions`](https://github.com/Javo294/caso1DS/tree/main/src/exceptions)  
 
 - **Classes:**  
@@ -226,7 +226,7 @@ EN ESTA SECCIÓN HACE FALTA AGREGAR INFORMACIÓN
 
 ---
 
-## Middleware
+## 6)Middleware
 - **Location:** [`/src/middleware`](https://github.com/Javo294/caso1DS/tree/main/src/middleware)  
 
 
@@ -254,7 +254,7 @@ Aquí va el código guía para el programador, falta agregarlo
 
 ---
 
-## Build & Deployment Pipeline
+## 7)Build & Deployment Pipeline
 **Location:** falta agregarla
 
 **Pipeline Stages:**  
@@ -277,7 +277,7 @@ EN ESTA SECCIÓN FALTA AGREGAR INFORMACIÓN DE CONFIGURACIÓN DE ENTORNOS,Pipeli
 
 ---
 
-## Security & Validators
+## 8)Security & Validators
 **Location:** falta agregar
 
 **Authentication Framework:** falta agregar
@@ -308,7 +308,7 @@ Aquí va el código guía para el programador, falta agregarlo
 ---
 
 
-## Session State
+## 9)Session State
 
 ### Allowed States
 - `requested` solicitud de sesión creada
@@ -327,7 +327,7 @@ Aquí va el código guía para el programador, falta agregarlo
 
 ---
 
-## DTOs (Data Transfer Objects)
+## 10)DTOs (Data Transfer Objects)
 
 ### Location
 - [`/src/dto`](https://github.com/Javo294/caso1DS/tree/main/src/dto)
@@ -344,7 +344,7 @@ Aquí va el código guía para el programador, falta agregarlo
 
 ---
 
-## State Management 
+## 11)State Management 
 
 ### Location
 - [`/src/store`](https://github.com/Javo294/caso1DS/tree/main/src/store)
@@ -362,7 +362,7 @@ Aquí va el código guía para el programador, falta agregarlo
 
 ---
 
-## Styles / Themes
+## 12)Styles / Themes
 
 ### Location
 - [`/src/styles`](https://github.com/Javo294/caso1DS/tree/main/src/styles)
@@ -380,7 +380,7 @@ Aquí va el código guía para el programador, falta agregarlo
 
 ---
 
-## Utilities / Helpers
+## 13)Utilities / Helpers
 
 ### Location
 - [`/src/utils`](https://github.com/Javo294/caso1DS/tree/main/src/utils)
@@ -408,7 +408,7 @@ Aquí va el código guía para el programador, falta agregarlo
 
 ---
 
-## Diagramas
+## 14)Diagrams
 
 ### 1. Diagrama de Clases  
 ![Diagrama de Clases](./diagrams/Clases_Corregido.png)
@@ -421,7 +421,7 @@ Aquí va el código guía para el programador, falta agregarlo
 
 --- 
 
-### Design Patterns Applied
+### 15)Design Patterns Applied
 
 | Pattern | Usage |
 |---------|-------|
@@ -433,7 +433,7 @@ Aquí va el código guía para el programador, falta agregarlo
 
 ---
 
-## Installation/Execution Instructions
+## 16)Installation/Execution Instructions
 
 This project does not require any additional local software installation to view the prototype, as it is hosted on **Figma**.  
 
