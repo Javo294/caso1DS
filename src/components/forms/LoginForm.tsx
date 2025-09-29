@@ -44,8 +44,7 @@ const LoginForm: React.FC = () => {
       </div>
     );
   }
-
-  // Autenticado: saludo + rol + botón Cerrar sesión con estilo consistente (secundario limpio)
+  
   const displayName = user?.name || user?.nickname || user?.email || "User";
   const roleLabel = roles.includes("premium-user")
     ? "Premium"
