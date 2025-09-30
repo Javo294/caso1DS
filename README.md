@@ -91,10 +91,7 @@ Logs are sent to Sentry as the primary storage.
 - **Expiration:** expired records will be moved to less expensive storage, namely Google Cloud Storage, which reduces costs.
 
 # 3.1.5)Flow According to Architecture
-- Services (Auth, Coach, Session, etc.) generate logs using `Logger.getInstance().log(...)`.
-- The `Logger` class validates and formats the logs.
-- Logs are sent to Sentry in real time.
-- Expired logs are archived to cheaper storage if historical data is needed.
+Aquí va el diagrama
   
 - **Usage Example:** 
 Aquí va el código guía para el programador, falta agregarlo
@@ -197,16 +194,6 @@ src/
 ## Middlewares
 - Each service can communicate with authorized middlewares.
 
-## Dependency Injection
-- Inject dependencies (repositories, external APIs) through the service constructor.
-- This enables unit testing and decoupling of services.
-  
-- **Restrictions:**  
-  - Services **do not access the global state directly**.  
-  - Services are exposed only through **Redux Toolkit slices**.
-
-- **Example Usage:**
-    Aquí va el código guía para el programador, falta agregarlo
 ---
 
 ## 5)Error Handling & Exceptions
@@ -410,14 +397,14 @@ Aquí va el código guía para el programador, falta agregarlo
 
 ## 14)Diagrams
 
-### 1. Diagrama de Clases  
-![Diagrama de Clases](./diagrams/Clases_Corregido.png)
+### 1. Class Diagram
+![Class Diagram](./diagrams/Clases_Corregido.png)
 
-### 2. Diagrama de Secuencia - Inicio de Sesión  
-![Secuencia Login](./diagrams/Secuencias_Inicio%20de%20Sesión.png)
+### 2. Sequence Diagram - Login 
+![Login Sequence](./diagrams/Secuencias_Inicio%20de%20Sesión.png)
 
-### 3. Diagrama de Secuencia - Agendar Sesión  
-![Secuencia Agendar](./diagrams/Seciencias_Agendar.png)
+### 3. Sequence Diagram - Schedule Session
+![Schedule Sequence](./diagrams/Seciencias_Agendar.png)
 
 --- 
 
