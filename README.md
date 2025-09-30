@@ -398,7 +398,7 @@ Aquí va el código guía para el programador, falta agregarlo
 ## 14)Diagrams
 
 ### 1. Class Diagram
-![Class Diagram](./diagrams/Clases_Corregido.png)
+![Class Diagram](./diagrams/ClassDiagram.png)
 
 ### 2. Sequence Diagram - Login 
 ![Login Sequence](./diagrams/Secuencias_Inicio%20de%20Sesión.png)
