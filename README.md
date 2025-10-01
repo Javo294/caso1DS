@@ -91,11 +91,9 @@ Logs are sent to Sentry as the primary storage.
 - **Expiration:** expired records will be moved to less expensive storage, namely Google Cloud Storage, which reduces costs.
 
 # 3.1.5)Flow According to Architecture
-Aquí va el diagrama
-  
-- **Usage Example:** 
-Aquí va el código guía para el programador, falta agregarlo
 
+![Flow According to Architecture ](./diagrams/flow_architecture.png)
+  
 ---
 
 ## 3.2)Background Jobs & Notifications
