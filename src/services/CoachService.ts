@@ -1,4 +1,3 @@
-// src/services/CoachService.ts
 import { logger } from '@/utils/logger';
 import { apiClient } from '@/api/apiClient';
 import { CoachDTO } from '@/dto/CoachDTO';
