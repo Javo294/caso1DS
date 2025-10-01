@@ -7,7 +7,6 @@ const AppRoutes = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
-        {/* Otras rutas aquí */}
       </Routes>
     </BrowserRouter>
   );

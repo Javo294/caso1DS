@@ -1,4 +1,4 @@
-// src/components/AskComposer.tsx
+
 import React, { useEffect, useRef, useState } from "react";
 
 const GRADIENT =
@@ -9,8 +9,8 @@ export default function AskComposer() {
   const [value, setValue] = useState("");
 
   // ⚙️ Configurables
-  const MIN_HEIGHT = 56;   // altura base (px)  ← cámbiala a tu gusto
-  const MAX_HEIGHT = 200;  // altura máxima (px) para mostrar scroll si se excede
+  const MIN_HEIGHT = 56;   // altura base (px)  
+  const MAX_HEIGHT = 200;  // altura máxima (px) 
   const WIDTH_CL = "w-full sm:w-[720px]"; // ancho del input
 
   const autoResize = () => {
@@ -27,19 +27,16 @@ export default function AskComposer() {
   }, [value]);
 
   return (
-    // contenedor relativo para anclar el input al fondo y que crezca "hacia arriba"
+    
     <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-      {/* wrapper que fija el input al fondo */}
       <form
         className={`absolute bottom-0 left-1/2 -translate-x-1/2 ${WIDTH_CL}`}
         onSubmit={(e) => e.preventDefault()}
       >
-        {/* borde en gradiente */}
         <div
           className="rounded-[28px] p-[2px] shadow-lg"
           style={{ backgroundImage: GRADIENT }}
         >
-          {/* piel interna */}
           <div className="rounded-[26px] bg-white/90 backdrop-blur-sm">
             <label htmlFor="ask-input" className="sr-only">
               Ask me something
@@ -53,14 +50,11 @@ export default function AskComposer() {
               onChange={(e) => setValue(e.target.value)}
               onInput={autoResize}
               placeholder="Ask me something"
-              // nota: no usamos resize de usuario; lo controlamos nosotros
               className="block w-full resize-none rounded-[26px] bg-transparent
                          px-6 py-4 text-neutral-900 placeholder-[#b183d9]
                          focus:outline-none focus:ring-0"
               style={{ height: MIN_HEIGHT }}
             />
-
-            {/* botón 'Enviar' presente pero oculto visualmente (accesible) */}
             <button type="submit" className="sr-only">
               Enviar
             </button>
@@ -68,8 +62,6 @@ export default function AskComposer() {
         </div>
       </form>
 
-      {/* espacio de trabajo para que el input tenga base donde apoyarse */}
-      <div className="h-40" />
-    </div>
+    <div className="h-40" /></div>
   );
 }

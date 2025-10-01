@@ -10,7 +10,6 @@ const LoginForm: React.FC = () => {
   console.log("LoginForm → roles:", roles, "user:", user);
 
   if (isLoading) {
-    // Loader mínimo sin unidades absolutas
     return (
       <div className="mx-auto w-full max-w-md">
         <div className="h-12 rounded-full bg-neutral-200/70 animate-pulse" />
@@ -19,7 +18,7 @@ const LoginForm: React.FC = () => {
   }
 
   if (!isAuthenticated) {
-    // CTA principal estilo mock: gradiente, pill, sombra y focus visible
+
     return (
       <div className="mx-auto w-full max-w-md">
         <button

@@ -24,10 +24,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       >
       <BrowserRouter>
         <Routes>
-          {/* Pantalla inicial (la actual) */}
           <Route path="/" element={<App />} />
-
-          {/* Nueva página tipo Figma */}
           <Route path="/app" element={<UserPage />} />
         </Routes>
       </BrowserRouter>

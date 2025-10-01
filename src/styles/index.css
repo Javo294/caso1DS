@@ -4,14 +4,12 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Opcional: variables para theme (se integran con el config arriba) */
 :root{
-  --brand: 221 83% 53%;             /* ejemplo hsl */
+  --brand: 221 83% 53%;            
   --brand-foreground: 0 0% 100%;
   --radius: 0.75rem;
 }
 
-/* Utilidades o capas personalizadas */
 @layer base {
   html, body, #root {
     height: 100%;

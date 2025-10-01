@@ -4,7 +4,7 @@ export type SuggestionItem = {
   id: string;
   label: string;
   iconSrc: string;       // Ruta del icono del grid
-  target?: string;       // Futura ruta para funcionamiento (no se esat usando aun porque esto es un cascaron)
+  target?: string;       // Futura ruta para funcionamiento (no se esta usando aun porque esto es un cascaron)
   disabled?: boolean;
 };
 
@@ -17,7 +17,6 @@ interface Props {
 const SuggestionsGrid: React.FC<Props> = ({ title = "Suggestions", items, onSelect }) => {
   return (
     <section className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
-      {/* Título con gradiente (puedes quitarlo si lo renderizas afuera) */}
       <h2
         className="
           text-white text-2xl md:text-4xl font-medium tracking-tight text-center mb-8 "
@@ -25,7 +24,7 @@ const SuggestionsGrid: React.FC<Props> = ({ title = "Suggestions", items, onSele
         {title}
       </h2>
 
-      {/* Grid responsive */}
+      {/* Grid*/}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md:gap-6">
         {items.map((it) => {
           const isDisabled = !!it.disabled;
@@ -43,20 +42,15 @@ const SuggestionsGrid: React.FC<Props> = ({ title = "Suggestions", items, onSele
                 ${isDisabled ? "opacity-60 cursor-not-allowed" : "hover:bg-white/75 active:bg-white/70 hover:shadow-lg focus-visible:outline-none"}
                 focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900
                 `}
-              // ⬆️ Ajusta el look aquí (color de fondo, sombra, etc.)
             >
               <div className="flex flex-col items-center justify-center px-6 py-5 min-h-[120px]">
-                {/* ⬇️ Tamaño del icono: cambia w-12 h-12 por lo que quieras */}
                 <img
                   src={it.iconSrc}
                   alt={it.label}
                   className="w-12 h-12 object-contain mb-3 pointer-events-none select-none"
                 />
-                {/* ⬇️ Tamaño del texto: cambia text-sm / md:text-base a tu gusto */}
                 <span className="text-sm md:text-base font-medium text-neutral-800">{it.label}</span>
               </div>
-
-              {/* Acento sutil al hover */}
               <div
                 aria-hidden
                 className="

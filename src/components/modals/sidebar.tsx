@@ -11,8 +11,8 @@ type Props = {
 const Sidebar: React.FC<Props> = ({
   isOpen,
   onToggle,
-  headerHeight = 64,   // ⬅️ CAMBIA esto si tu header mide distinto
-  widthOpen = 260,     // ⬅️ CAMBIA esto para ajustar el ancho abierto
+  headerHeight = 64,   
+  widthOpen = 260,     
   items = ["Como invertir en el bac", "Como cocinar pasta alfredo", "Un gato se metio debajo de mi carro y no se como sacarlo"],
 }) => {
   return (
@@ -26,7 +26,7 @@ const Sidebar: React.FC<Props> = ({
           className="fixed left-3 z-40 rounded-xl bg-neutral-900/80 text-white/90
                      ring-1 ring-white/10 hover:bg-neutral-900 hover:ring-white/20
                      backdrop-blur px-3 py-2 transition"
-          style={{ top: headerHeight + 12 }} // ⬅️ separacion desde el header
+          style={{ top: headerHeight + 12 }}
         >
           {/* icono "hamburger" */}
           <svg width="20" height="20" viewBox="0 0 24 24" className="block">
@@ -40,9 +40,9 @@ const Sidebar: React.FC<Props> = ({
         className="fixed left-0 z-50 overflow-hidden bg-neutral-900/95 text-white/90
                    ring-1 ring-white/10 shadow-lg backdrop-blur transition-all"
         style={{
-          top: headerHeight,                             // ⬅️ se coloca debajo del header
+          top: headerHeight,                             
           height: `calc(100vh - ${headerHeight}px)`,
-          width: isOpen ? widthOpen : 0,                 // ⬅️ ancho abierto/cerrado
+          width: isOpen ? widthOpen : 0,                 
         }}
         aria-hidden={!isOpen}
       >
