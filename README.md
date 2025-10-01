@@ -119,7 +119,7 @@ Create an abstract class `SubscriberBase` with a method `handleEvent(event: stri
 All classes that receive events must inherit from this class.
 
 # Creating Publishers
-**Location:** `services` or `controllers`  aquí falta copiar el enlace
+**Location:** [`/src/controllers/PublisherBase.ts´](https://github.com/Javo294/caso1DS/blob/main/src/controllers/PublisherBase.ts)
 **Tasks:**
 - Create a class that inherits from `PublisherBase`.
 - Implement the `publish` method to send events via Socket.io or another event bus.
