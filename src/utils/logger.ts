@@ -1,5 +1,3 @@
-//Código generado por IA, falta documentar
-
 import * as Sentry from '@sentry/react';
 
 export enum LogLevel {
