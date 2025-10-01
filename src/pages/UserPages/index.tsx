@@ -40,7 +40,7 @@ const CoachApp: React.FC = () => {
   //Ancho y largo del sidebar
   const [isSidebarOpen, setIsSidebarOpen] = useState(true); 
   const HEADER_H = 0;     
-  const SIDEBAR_W = 500;  
+  const SIDEBAR_W = 350;  
 
   // Cerrar con clic fuera o con tecla Esc
   useEffect(() => {
@@ -125,13 +125,13 @@ const CoachApp: React.FC = () => {
                       }
                       className="w-full text-left px-3 py-2 rounded-lg hover:bg-white/10 transition text-sm"
                     >
-                      Cerrar sesión
+                      Log Out
                     </button>
                    {!isPremium &&(
                     <button
                       role="menuitem"
                       className="w-full text-left px-3 py-2 rounded-lg hover:bg-white/10 transition text-sm">
-                      Mejorar a Premium
+                      Upgrade to Premium
                     </button>
                    )}
 
