@@ -111,21 +111,21 @@ Logs are sent to Sentry as the primary storage.
 -Subscriber
 
 # PublisherBase
-Create an abstract class `PublisherBase` with a method `publish(event: string, payload: any)`.
+Create an abstract class `PublisherBase` (see "Creating Publishers" below) with a method `publish(event: string, payload: any)`.
 All classes that send notifications must inherit from this class.
 
 # SubscriberBase
-Create an abstract class `SubscriberBase` with a method `handleEvent(event: string, payload: any)`.
+Create an abstract class `SubscriberBase` (see "Creating Subscribers" below) with a method `handleEvent(event: string, payload: any)`.
 All classes that receive events must inherit from this class.
 
 # Creating Publishers
-**Location:** `services` or `controllers`  aquí falta copiar el enlace
-**Tasks:**
+**Location:** [`/src/controllers/PublisherBase.ts`](https://github.com/Javo294/caso1DS/blob/main/src/controllers/PublisherBase.ts)
+**Tasks:** 
 - Create a class that inherits from `PublisherBase`.
 - Implement the `publish` method to send events via Socket.io or another event bus.
 
 # Creating Subscribers
-**Location:** `/src/listeners/`  aquí falta copiar el enlace
+**Location:** [`/src/listeners/SubscriberBase.ts`](https://github.com/Javo294/caso1DS/blob/main/src/listeners/SubscriberBase.ts)
 **Tasks:**
 - Create a class that inherits from `SubscriberBase`.
 - Implement the `handleEvent` method to process the received event.
@@ -137,22 +137,22 @@ All classes that receive events must inherit from this class.
 - Must map mobile devices (IMEI or token) to send specific notifications.
 
 **Layer Separation:**
-- **Publishers:** generate events → located in `services` or `controllers`.  
+- **Publishers:** generate events → located in `controllers`.  
 - **Subscribers:** receive events → located in `listeners`.
 
 **Publisher Example:**  
-Aquí va el código guía para el programador, falta agregarlo
+[`/src/controllers/PublisherBase.ts`](https://github.com/Javo294/caso1DS/blob/main/src/controllers/PublisherBase.ts)
+
 **Suscriber Example:**  
-Aquí va el código guía para el programador, falta agregarlo
+[`/src/listeners/SubscriberExcample.ts`](https://github.com/Javo294/caso1DS/blob/main/src/listeners/SubscriberExcample.ts)
 
 ---
 
 ## 3.3)Linter & Code Standards
 **Configuration Files:**  
-- ESLint: `/.eslintrc.js`  
-- Prettier: `/.prettierrc`  
-- NPM scripts (`package.json`):  
-  - `"lint": "eslint 'src/**/*.{ts,tsx}' --fix"`  
+- ESLint: [`/src/linter/eslintrc.js`](https://github.com/Javo294/caso1DS/blob/main/src/linter/eslintrc.js)  
+- Prettier: [`/src/linter/prettierrc.ts`](https://github.com/Javo294/caso1DS/blob/main/src/linter/prettierrc.ts)
+- NPM scripts [`/src/linter/pakage.json`](https://github.com/Javo294/caso1DS/blob/main/src/linter/pakage.json):  
 
 **Tools:** ESLint + Prettier  
 - **Rules:**  
@@ -170,13 +170,12 @@ Aquí va el código guía para el programador, falta agregarlo
 ---
 
 ## 4)Services Layer
-- **Location:** [`/src/services`](https://github.com/Javo294/caso1DS/tree/main/src/services)  
-
 - **Examples:**  
-  - [`CoachService.ts`](https://github.com/Javo294/caso1DS/blob/main/src/services/CoachService.ts)  
-  - [`SessionService.ts`](https://github.com/Javo294/caso1DS/blob/main/src/services/SessionService.ts)
-   - [`ServiceTemplate.ts `](https://github.com/Javo294/caso1DS/blob/main/src/services/ServiceTemplate.ts )
-- **Pattern:** Service + Dependency Injection  
+  - [`/src/services/CoachService.ts`](https://github.com/Javo294/caso1DS/blob/main/src/services/CoachService.ts)  
+  - [`/src/services/SessionService.ts`](https://github.com/Javo294/caso1DS/blob/main/src/services/SessionService.ts)
+  - [`/src/services/ServiceTemplate.ts`](https://github.com/Javo294/caso1DS/blob/main/src/services/ServiceTemplate.ts )
+- **Pattern:** Service + Dependency Injection
+
 # Structure
 src/
  └─ services/
@@ -195,30 +194,25 @@ src/
 ---
 
 ## 5)Error Handling & Exceptions
-- **File:** [`/src/exceptions`](https://github.com/Javo294/caso1DS/tree/main/src/exceptions)  
-
 - **Classes:**  
-  - [`BaseException.ts`](https://github.com/Javo294/caso1DS/blob/main/src/exceptions/BaseException.ts) → abstract base class for custom errors.  
-  - [`AuthException.ts`](https://github.com/Javo294/caso1DS/blob/main/src/exceptions/AuthException.ts) → handles authentication/authorization errors.  
+  - [`/src/exceptions/BaseException.ts`](https://github.com/Javo294/caso1DS/blob/main/src/exceptions/BaseException.ts) → abstract base class for custom errors.  
+  - [`/src/exceptions/AuthException.ts`](https://github.com/Javo294/caso1DS/blob/main/src/exceptions/AuthException.ts) → handles authentication/authorization errors.  
   
 - **Integration:**  
   - **React ErrorBoundary** → captures unhandled runtime errors in React components.  
   - **Sentry** → tracks, archives, and exports logs in accordance with organizational policies.  
 - **Example Implementation:**  
-Aquí va el código guía para el programador, falta agregarlo
+  - [`/src/exceptions/ExceptionExample.ts`](https://github.com/Javo294/caso1DS/blob/main/src/exceptions/ExceptionExample.ts)
 
 EN ESTA SECCIÓN HACE FALTA AGREGAR INFORMACIÓN
 
 ---
 
 ## 6)Middleware
-- **Location:** [`/src/middleware`](https://github.com/Javo294/caso1DS/tree/main/src/middleware)  
-
-
 **Implemented Redux Middleware:**  
-- [`authMiddleware.ts`](https://github.com/Javo294/caso1DS/blob/main/src/middleware/authMiddleware.ts) → validates authentication & permissions.  
-  - [`logMiddleware.ts`](https://github.com/Javo294/caso1DS/blob/main/src/middleware/logMiddleware.ts) → structured logging for requests and state changes.  
-  - [`errorMiddleware.ts`](https://github.com/Javo294/caso1DS/blob/main/src/middleware/errorMiddleware.ts) → catches and forwards errors.  
+  - [`/src/middleware/authMiddleware.ts`](https://github.com/Javo294/caso1DS/blob/main/src/middleware/authMiddleware.ts)→ validates authentication & permissions.  
+  - [`/src/middleware/logMiddleware.ts`](https://github.com/Javo294/caso1DS/blob/main/src/middleware/logMiddleware.ts) → structured logging for requests and state changes.  
+  - [`src/middleware/errorMiddleware.ts`](https://github.com/Javo294/caso1DS/blob/main/src/middleware/logMiddleware.ts) → catches and forwards errors.  
 
 - **Pattern:**  
   Implements **Chain of Responsibility**, where each middleware handles a specific concern and passes control to the next.  
