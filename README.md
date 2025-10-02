@@ -250,17 +250,16 @@ EN ESTA SECCIÓN HACE FALTA AGREGAR INFORMACIÓN
 - **Basic Commands:**
 [`/src/enviroment/BasicCommands.ts`](https://github.com/Javo294/caso1DS/blob/main/src/enviroment/BasicCommands.ts)
 
-EN ESTA SECCIÓN FALTA AGREGAR INFORMACIÓN DE CONFIGURACIÓN DE ENTORNOS,Pipeline Stages...
-
 ---
 
 ## 8)Security & Validators
 **Authentication Framework:** Auth0
 
 **Authentication Screens:**  
+- [`/src/assets/images/AuthScreens.md`](https://github.com/Javo294/caso1DS/blob/main/src/assets/images/AuthScreens.md)
 
 **Configuration:**  
-falta agregar
+- [`/src/assets/images/ConfigAuth.md`](https://github.com/Javo294/caso1DS/blob/main/src/assets/images/ConfigAuth.md)
 
 **Security Rules:**  
 
