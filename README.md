@@ -234,8 +234,6 @@ EN ESTA SECCIÓN HACE FALTA AGREGAR INFORMACIÓN
 ---
 
 ## 7)Build & Deployment Pipeline
-**Location:** falta agregarla
-
 **Pipeline Stages:**  
   1. **Lint & Test** → runs ESLint + Jest tests to validate code quality.  
   2. **Build** → compiles with Vite.  
@@ -243,14 +241,14 @@ EN ESTA SECCIÓN HACE FALTA AGREGAR INFORMACIÓN
 
 
 **Environment Configurations:**  
-- `.env.development` → local development.  
-- `.env.production` → production (Vercel).  
+- [`/src/enviroment/env.development`](https://github.com/Javo294/caso1DS/blob/main/src/enviroment/env.development) → local development.  
+- [`/src/enviroment/env.production`](https://github.com/Javo294/caso1DS/blob/main/src/enviroment/env.production) → production (Vercel).  
 
 **Secret Management:**  
 - Sensitive values stored in **Vercel Environment Variables**.
   
 - **Basic Commands:**
-Aquí va el código guía para el programador, falta agregarlo
+[`/src/enviroment/BasicCommands.ts`](https://github.com/Javo294/caso1DS/blob/main/src/enviroment/BasicCommands.ts)
 
 EN ESTA SECCIÓN FALTA AGREGAR INFORMACIÓN DE CONFIGURACIÓN DE ENTORNOS,Pipeline Stages...
 
@@ -267,14 +265,17 @@ falta agregar
 **Security Rules:**  
 
 SR-01
-Description: The system must restrict access to specific windows depending on the authenticated user role.
+Description: After receiving the role, the program redirects the user to the user page (called index). Depending on the role, some features are displayed while others are hidden.
+
 Specification:
 
-Role A may access: 
+- Basic-user: Has access to the suggestion list (a grid with 8 boxes), the askComposer (where the user writes their query), and the user menu. The user menu is important because, exclusively for this role, there is a button that says “Upgrade to Premium” (basically the “poor man’s button”).
 
-Role B may access:
+- Premium-user: Has access to everything above (except the “poor man’s button”), plus a sidebar that functions as a chat history.
 
-Access Denied Behavior: If a user attempts to access a restricted area, the system must deny access and display an error/alert message.
+Access Denied Behavior: This should not occur because the program directly shows or hides features based on the user’s role. It’s not even a case of disabling them—features simply do not appear.
+
+Priority: Medium
 
 Dependencies: None
 
@@ -320,8 +321,8 @@ These validators enforce rules and constraints on the domain models before any b
 DTOs define the structure of the data that moves between the frontend and backend. They enforce contracts, ensure type safety, and simplify data transformations.
 
 ### Examples
-- [`CoachDTO.ts`](https://github.com/Javo294/caso1DS/blob/main/src/dto/CoachDTO.ts)
-- [`SessionDTO.ts`](https://github.com/Javo294/caso1DS/blob/main/src/dto/SessionDTO.ts)
+- [`/src/dto/CoachDTO.ts`](https://github.com/Javo294/caso1DS/blob/main/src/dto/CoachDTO.ts)
+- [`/src/dto/SessionDTO.ts`](https://github.com/Javo294/caso1DS/blob/main/src/dto/SessionDTO.ts)
 
 ### Transformation Example
 Aquí va el código guía para el programador, falta agregarlo
@@ -329,65 +330,48 @@ Aquí va el código guía para el programador, falta agregarlo
 ---
 
 ## 11)State Management 
-
-### Location
-- [`/src/store`](https://github.com/Javo294/caso1DS/tree/main/src/store)
-
 ### Purpose
 Manage global state in a predictable way using Redux Toolkit slices and hooks. Each slice is responsible for a specific domain (Auth, Coach, Session).
 
 ### Slices
-- [`useAuthStore.ts`](https://github.com/Javo294/caso1DS/blob/main/src/store/useAuthStore.ts)
-- [`useCoachStore.ts`](https://github.com/Javo294/caso1DS/blob/main/src/store/useCoachStore.ts)
-- [`useSessionStore.ts`](https://github.com/Javo294/caso1DS/blob/main/src/store/useSessionStore.ts)
+- [`/src/store/useAuthStore.ts`](https://github.com/Javo294/caso1DS/blob/main/src/store/useAuthStore.ts)
+- [`/src/store/useCoachStore.ts`](https://github.com/Javo294/caso1DS/blob/main/src/store/useCoachStore.ts)
+- [`/src/store/useSessionStore.ts`](https://github.com/Javo294/caso1DS/blob/main/src/store/useSessionStore.ts)
 
 ### Example: 
-Aquí va el código guía para el programador, falta agregarlo
+- [`/src/store/stateExample.ts`](https://github.com/Javo294/caso1DS/blob/main/src/store/stateExample.ts)
 
 ---
 
 ## 12)Styles / Themes
-
-### Location
-- [`/src/styles`](https://github.com/Javo294/caso1DS/tree/main/src/styles)
-
 ### Purpose
 Manage global styles, themes, and responsive design using Tailwind CSS.
 
 ### Files
-- [`index.css`](https://github.com/Javo294/caso1DS/blob/main/src/styles/index.css) → Global CSS import, Tailwind base, components, and utilities.
-- [`tailwind.config.ts`](https://github.com/Javo294/caso1DS/blob/main/src/styles/tailwind.config.ts) → Tailwind configuration, custom colors, breakpoints, and plugins.
-- [`themes.ts`](https://github.com/Javo294/caso1DS/blob/main/src/styles/themes.ts) → Theme definitions, e.g., dark/light mode, shared colors, font sizes.
+- [`src/styles/index.css`](https://github.com/Javo294/caso1DS/blob/main/src/styles/index.css) → Global CSS import, Tailwind base, components, and utilities.
+- [`/src/styles/tailwind.config.ts`](https://github.com/Javo294/caso1DS/blob/main/src/styles/tailwind.config.ts) → Tailwind configuration, custom colors, breakpoints, and plugins.
+- [`/src/styles/themes.ts`](https://github.com/Javo294/caso1DS/blob/main/src/styles/themes.ts) → Theme definitions, e.g., dark/light mode, shared colors, font sizes.
 
 ### Example: 
-Aquí va el código guía para el programador, falta agregarlo
+- [`/src/styles/useTheme.ts`](https://github.com/Javo294/caso1DS/blob/main/src/styles/useTheme.ts)
 
 ---
 
 ## 13)Utilities / Helpers
-
-### Location
-- [`/src/utils`](https://github.com/Javo294/caso1DS/tree/main/src/utils)
-
 ### Purpose
 Shared helper functions and constants used across the frontend. Includes formatting utilities, global constants, and logging.
 
 ### Files and Examples
 
-- [`constants.ts`](https://github.com/Javo294/caso1DS/blob/main/src/utils/constants.ts)  
+- [`/src/utils/constants.ts`](https://github.com/Javo294/caso1DS/blob/main/src/utils/constants.ts)  
   Contains global constants for the application.
-  
-Aquí va el código guía para el programador, falta agregarlo
 
-- [`formatTime.ts`](https://github.com/Javo294/caso1DS/blob/main/src/utils/formatTime.ts)  
+- [`/src/utils/formatTime.ts`](https://github.com/Javo294/caso1DS/blob/main/src/utils/formatTime.ts)  
   Utility functions for formatting date and time.
-  
-Aquí va el código guía para el programador, falta agregarlo
 
 - [`logger.ts`](https://github.com/Javo294/caso1DS/blob/main/src/utils/logger.ts)  
   Singleton logger for application-wide logging using Sentry.
   
-Aquí va el código guía para el programador, falta agregarlo
 
 
 ---
