@@ -162,11 +162,6 @@ All classes that receive events must inherit from this class.
     - `PascalCase` → Components  
     - `camelCase` → Functions & variables  
   - **`any` type** only allowed with explicit documentation
- 
-  **Script de NPM:**
-  Aquí va el código guía para el programador, falta agregarlo
-
-  EN ESTA SECCIÓN HACEN FALTA MEJORAS
 ---
 
 ## 4)Services Layer
