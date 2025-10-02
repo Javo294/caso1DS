@@ -141,7 +141,7 @@ All classes that receive events must inherit from this class.
 - **Subscribers:** receive events → located in `listeners`.
 
 **Publisher Example:**  
-[`/src/controllers/PublisherBase.ts`](https://github.com/Javo294/caso1DS/blob/main/src/controllers/PublisherBase.ts)
+[`/src/controllers/PublisherExample.ts`](https://github.com/Javo294/caso1DS/blob/main/src/controllers/PublisherExample.ts)
 
 **Suscriber Example:**  
 [`/src/listeners/SubscriberExample.ts`](https://github.com/Javo294/caso1DS/blob/main/src/listeners/SubscriberExample.ts)
