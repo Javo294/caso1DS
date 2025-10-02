@@ -212,7 +212,7 @@ EN ESTA SECCIÓN HACE FALTA AGREGAR INFORMACIÓN
 **Implemented Redux Middleware:**  
   - [`/src/middleware/authMiddleware.ts`](https://github.com/Javo294/caso1DS/blob/main/src/middleware/authMiddleware.ts)→ validates authentication & permissions.  
   - [`/src/middleware/logMiddleware.ts`](https://github.com/Javo294/caso1DS/blob/main/src/middleware/logMiddleware.ts) → structured logging for requests and state changes.  
-  - [`src/middleware/errorMiddleware.ts`](https://github.com/Javo294/caso1DS/blob/main/src/middleware/logMiddleware.ts) → catches and forwards errors.  
+  - [`/src/middleware/errorMiddleware.ts`](https://github.com/Javo294/caso1DS/blob/main/src/middleware/logMiddleware.ts) → catches and forwards errors.  
 
 - **Pattern:**  
   Implements **Chain of Responsibility**, where each middleware handles a specific concern and passes control to the next.  
@@ -229,7 +229,7 @@ EN ESTA SECCIÓN HACE FALTA AGREGAR INFORMACIÓN
 - `errorMiddleware` must forward exceptions to the Logger and/or a monitoring service, following the log retention rules defined previously.
 
 - **Usage Example:**
-Aquí va el código guía para el programador, falta agregarlo
+[`/src/middleware/index.ts`](https://github.com/Javo294/caso1DS/blob/main/src/middleware/index.ts)
 
 ---
 
@@ -257,32 +257,40 @@ EN ESTA SECCIÓN FALTA AGREGAR INFORMACIÓN DE CONFIGURACIÓN DE ENTORNOS,Pipeli
 ---
 
 ## 8)Security & Validators
-**Location:** falta agregar
-
-**Authentication Framework:** falta agregar
+**Authentication Framework:** Auth0
 
 **Authentication Screens:**  
-
 
 **Configuration:**  
 falta agregar
 
 **Security Rules:**  
-falta agregar
+
+SR-01
+Description: The system must restrict access to specific windows depending on the authenticated user role.
+Specification:
+
+Role A may access: 
+
+Role B may access:
+
+Access Denied Behavior: If a user attempts to access a restricted area, the system must deny access and display an error/alert message.
+
+Dependencies: None
 
 ---
 
 ## Validators
 
 ### Files
-- [`CoachValidator.ts`](https://github.com/Javo294/caso1DS/blob/main/src/validators/CoachValidator.ts)
-- [`SessionValidator.ts`](https://github.com/Javo294/caso1DS/blob/main/src/validators/SessionValidator.ts)
+- [`/src/validators/CoachValidator.ts`](https://github.com/Javo294/caso1DS/blob/main/src/validators/CoachValidator.ts)
+- [`/src/validators/SessionValidator.ts`](https://github.com/Javo294/caso1DS/blob/main/src/validators/SessionValidator.ts)
 
 ### Purpose
 These validators enforce rules and constraints on the domain models before any business logic or API calls are executed. They follow the **Decorator** pattern to allow flexible and reusable validations.
 
 ### Example Usage
-Aquí va el código guía para el programador, falta agregarlo
+- [`/src/validators/ValidatorExample.ts`](https://github.com/Javo294/caso1DS/blob/main/src/validators/ValidatorExample.ts)
 
 ---
 
@@ -307,9 +315,6 @@ Aquí va el código guía para el programador, falta agregarlo
 ---
 
 ## 10)DTOs (Data Transfer Objects)
-
-### Location
-- [`/src/dto`](https://github.com/Javo294/caso1DS/tree/main/src/dto)
 
 ### Purpose
 DTOs define the structure of the data that moves between the frontend and backend. They enforce contracts, ensure type safety, and simplify data transformations.
